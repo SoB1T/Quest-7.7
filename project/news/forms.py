@@ -3,9 +3,18 @@ from .models import Post
 from django.core.exceptions import ValidationError
 
 BAD_WORDS = [
-     "BADWORD"
+    "badword",
+    "surveillance",
+    "discrimination",
+    "bias",
+    "autonomy",
+    "accountability",
+    "violations",
+    "oversight",
+    "safeguarding",
+    "implications",
+    "misuse",
 ]
-
 
 
 class PostForm(forms.ModelForm):
@@ -19,11 +28,11 @@ class PostForm(forms.ModelForm):
             'categories',
         ]
 
-    def censor(self,text):
+    def censor(self, text):
         censor_text = []
         texte = text.split()
         for word in texte:
-            if word.upper() in BAD_WORDS:  # чуточку улучшил код чтобы не было возможно обойти с помощью регистра
+            if word.lower() in BAD_WORDS:  # чуточку улучшил код чтобы не было возможно обойти с помощью регистра
                 censor_word = word[0] + ("*" * len(word))
                 censor_text.append(censor_word)
             else:
